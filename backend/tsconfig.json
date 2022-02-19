@@ -1,0 +1,32 @@
+{
+    "compilerOptions": {
+      "target": "es2018",
+      "module": "commonjs",
+      "moduleResolution": "node",
+      "lib": [
+        "ES2020",
+        "dom"
+      ],
+      "allowJs": true,
+      "esModuleInterop": true,
+      "sourceMap": true,
+      "inlineSources": true,
+      "incremental": true,
+      "removeComments": true,
+      "checkJs": false,
+      "strictFunctionTypes": false,
+      "strictBindCallApply": false,
+      "resolveJsonModule": true,
+      "strictPropertyInitialization": false,
+      "strictNullChecks": false,
+      "noStrictGenericChecks": true,
+      "noImplicitAny": false,
+      "noImplicitThis": false,
+      "allowSyntheticDefaultImports": true,
+      "downlevelIteration": true,
+      "baseUrl": "../",
+      "outDir": "out"
+    },
+    "include": ["src", "experiment"]
+  }
+  
