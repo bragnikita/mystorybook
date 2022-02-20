@@ -1,8 +1,10 @@
 import fastify from "fastify";
 import { loadSettingsFromEnvironment , settings } from "./app";
 import users from './users/controller';
+import mri from 'mri';
 
-loadSettingsFromEnvironment();
+const opts = mri(process.argv.slice(2));
+loadSettingsFromEnvironment(opts.config);
 
 const api = fastify({ logger: true });
 

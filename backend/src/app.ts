@@ -20,8 +20,9 @@ const settings: AppSettings = {
     httpPort: 3000
 }
 
-export function loadSettingsFromEnvironment() {
-    const envFile = path.resolve(process.cwd(), '.env')
+export function loadSettingsFromEnvironment(pathToConfig?: string) {
+    const envFile = pathToConfig || path.resolve(process.cwd(), '.env');
+    console.log('Loading settings from', envFile);
     if (!existsSync(envFile)) {
         throw '.env file was not found in ' + envFile;
     }

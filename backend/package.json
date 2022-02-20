@@ -5,7 +5,11 @@
   "main": "index.ts",
   "scripts": {
     "serve": "ts-node src/index.ts",
-    "test": "jest"
+    "test": "jest",
+    "build": "tsc",
+    "build-prod": "tsc -P tsconfig.prod.json",
+    "start-prod": "node dist/index.js",
+    "clean-dist": "rimraf dist/"
   },
   "author": "bragnikita",
   "license": "MIT",
@@ -14,6 +18,7 @@
     "js-yaml": "^4.1.0",
     "knex": "^1.0.3",
     "lodash": "^4.17.21",
+    "mri": "^1.2.0",
     "mysql2": "^2.3.3"
   },
   "devDependencies": {
@@ -21,6 +26,7 @@
     "@types/js-yaml": "^4.0.5",
     "@types/lodash": "^4.14.178",
     "@types/node": "^17.0.18",
+    "rimraf": "^3.0.2",
     "ts-node": "^10.5.0",
     "typescript": "^4.5.5"
   }

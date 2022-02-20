@@ -1,3 +1,5 @@
 db/mysql/data
 experiment/
 dist/
+out/
+server/

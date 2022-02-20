@@ -24,9 +24,8 @@
       "noImplicitThis": false,
       "allowSyntheticDefaultImports": true,
       "downlevelIteration": true,
-      "baseUrl": "../",
-      "outDir": "out"
+      "outDir": "dist"
     },
-    "include": ["src", "experiment"]
+    "include": ["src/", "experiment"]
   }
   
