@@ -1,10 +1,12 @@
-import fastify from "fastify";
-import { loadSettingsFromEnvironment, settings } from "./app";
+import fastify from 'fastify';
+import { loadSettingsFromEnvironment, settings } from './app';
 import users from './users/controller';
 import mri from 'mri';
 import cors from 'fastify-cors';
 import jwt from 'fastify-jwt';
-import { setupJwtAuthentication } from "./users/authentication";
+import { setupJwtAuthentication } from './users/authentication';
+import fastifyMultipart from 'fastify-multipart';
+import { registerStorageAccess } from './shared/filestore/controller';
 
 const opts = mri(process.argv.slice(2));
 loadSettingsFromEnvironment(opts.config);
@@ -14,6 +16,7 @@ api.register(cors, {
     origin: true,
 });
 setupJwtAuthentication(api);
+registerStorageAccess('/public', api);
 api.get('/', async (request, reply) => {
     const param = request.query['param'];
     return { hello: 'world', param };
@@ -27,5 +30,5 @@ const start = async () => {
         api.log.error(e);
         process.exit(1);
     }
-}
+};
 start();
