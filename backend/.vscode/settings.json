@@ -16,5 +16,7 @@
             "connectString": "app:app@127.0.0.1:3306/mystorybook",
             "connectionTimeout": 5
         }
-    ]
+    ],
+    "editor.formatOnSave": true,
+    "editor.defaultFormatter": "esbenp.prettier-vscode"
 }
