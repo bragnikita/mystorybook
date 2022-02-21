@@ -4,7 +4,8 @@
   "description": "",
   "main": "index.ts",
   "scripts": {
-    "serve": "ts-node src/index.ts",
+    "serve-watch": "nodemon",
+    "serve": "ts-node src/index.ts --config server/.env",
     "test": "jest",
     "build": "tsc",
     "build-prod": "tsc -P tsconfig.prod.json",
@@ -15,6 +16,8 @@
   "license": "MIT",
   "dependencies": {
     "fastify": "^3.27.1",
+    "fastify-cors": "^6.0.2",
+    "fastify-jwt": "^4.1.3",
     "js-yaml": "^4.1.0",
     "knex": "^1.0.3",
     "lodash": "^4.17.21",
@@ -22,12 +25,21 @@
     "mysql2": "^2.3.3"
   },
   "devDependencies": {
+    "@swc/core": "^1.2.143",
     "@types/jest": "^27.4.0",
     "@types/js-yaml": "^4.0.5",
     "@types/lodash": "^4.14.178",
     "@types/node": "^17.0.18",
+    "nodemon": "^2.0.15",
     "rimraf": "^3.0.2",
     "ts-node": "^10.5.0",
     "typescript": "^4.5.5"
+  },
+  "nodemonConfig": {
+    "watch": ["src/"],
+    "delay": 2000,
+    "execMap": {
+      "ts": "yarn run serve"
+    }
   }
 }

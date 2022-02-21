@@ -1,6 +1,8 @@
 import { existsSync, readFileSync } from "fs";
 import { load } from "js-yaml";
+import _ from "lodash";
 import path from "path";
+import crypto from 'crypto';
 
 export type AppSettings = {
     dbHost: string,
@@ -9,6 +11,7 @@ export type AppSettings = {
     dbPort: number,
     dbDatabaseName: string,
     httpPort: number,
+    httpJwtSecret: string,
 }
 
 const settings: AppSettings = {
@@ -17,7 +20,8 @@ const settings: AppSettings = {
     dbUsername: "",
     dbPort: 3306,
     dbDatabaseName: "",
-    httpPort: 3000
+    httpPort: 3000,
+    httpJwtSecret: crypto.randomBytes(20).toString('hex'),
 }
 
 export function loadSettingsFromEnvironment(pathToConfig?: string) {

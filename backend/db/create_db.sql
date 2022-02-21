@@ -8,6 +8,7 @@ CREATE TABLE users (
     display_name VARCHAR(50),
     email VARCHAR(50),
     avatar VARCHAR(150),
+    password_raw VARCHAR(50),
     is_admin BOOLEAN DEFAULT FALSE,
     is_blocked BOOLEAN DEFAULT FALSE,
     created_at DATETIME DEFAULT CURRENT_TIMESTAMP,

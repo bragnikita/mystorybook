@@ -26,6 +26,9 @@
       "downlevelIteration": true,
       "outDir": "dist"
     },
-    "include": ["src/", "experiment"]
+    "include": ["src/", "experiment"],
+    "ts-node": {
+      "swc": true,
+    }
   }
   

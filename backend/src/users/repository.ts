@@ -11,6 +11,7 @@ export type DbUser  = {
     is_admin: DbBoolean,
     is_blocked: DbBoolean,
     created_at: string,
+    password_raw: string,
 }
 
 

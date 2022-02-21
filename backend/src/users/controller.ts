@@ -1,4 +1,5 @@
 import { FastifyInstance, FastifyReply, FastifyRequest } from "fastify";
+import { registerSignIn } from "./authentication";
 import * as domain from './domain';
 
 async function getOne(request: FastifyRequest, reply: FastifyReply) {
@@ -39,5 +40,6 @@ export default function (api: FastifyInstance, opts, done) {
     api.put('/:username', update);
     api.get('/:username', getOne);
     api.get('/', getAll);
+    registerSignIn('/signIn', api);
     done();
 }
