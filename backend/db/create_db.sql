@@ -17,19 +17,20 @@ CREATE TABLE users (
 CREATE TABLE categories (
     id INT AUTO_INCREMENT,
     name VARCHAR(100) NOT NULL,
+    tag VARCHAR(50),
     parent_category_id INT,
     PRIMARY KEY(id),
     INDEX(parent_category_id),
     FOREIGN KEY(parent_category_id) REFERENCES categories(id) ON DELETE CASCADE
 );
 CREATE TABLE articles (
-    id INT AUTO_INCREMENT,
+    id VARCHAR(6),
     title VARCHAR(150),
     cover VARCHAR(150),
     description VARCHAR(5000),
     content LONGTEXT,
-    created_date DATETIME DEFAULT CURRENT_TIMESTAMP,
-    updated_date DATETIME DEFAULT CURRENT_TIMESTAMP,
+    created_at DATETIME DEFAULT CURRENT_TIMESTAMP,
+    updated_at DATETIME DEFAULT CURRENT_TIMESTAMP,
     is_draft BOOLEAN DEFAULT TRUE,
     owner_username VARCHAR(25),
     main_category_id INT,
@@ -46,7 +47,7 @@ CREATE TABLE tags (
 );
 CREATE TABLE tag_article (
     tag_id INT,
-    article_id INT,
+    article_id VARCHAR(6),
     INDEX(tag_id),
     INDEX(article_id),
     FOREIGN KEY(tag_id) REFERENCES tags(id) ON DELETE CASCADE,
