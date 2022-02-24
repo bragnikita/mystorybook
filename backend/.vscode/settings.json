@@ -18,5 +18,8 @@
         }
     ],
     "editor.formatOnSave": true,
-    "editor.defaultFormatter": "esbenp.prettier-vscode"
+    "editor.defaultFormatter": "esbenp.prettier-vscode",
+    "jest.jestCommandLine": "yarn test",
+    "jest.autoRun": "off",
+    "jestrunner.jestCommand": "yarn run test --"
 }

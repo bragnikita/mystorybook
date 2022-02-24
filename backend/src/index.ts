@@ -3,6 +3,7 @@ import { loadSettingsFromEnvironment, settings } from './app';
 import users from './users/controller';
 import mri from 'mri';
 import cors from 'fastify-cors';
+import articles from './articles/controller';
 import jwt from 'fastify-jwt';
 import { setupJwtAuthentication } from './users/authentication';
 import fastifyMultipart from 'fastify-multipart';
@@ -22,6 +23,7 @@ api.get('/', async (request, reply) => {
     return { hello: 'world', param };
 });
 api.register(users, { prefix: '/users' });
+api.register(articles, { prefix: '/articles' });
 
 const start = async () => {
     try {

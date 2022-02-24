@@ -14,21 +14,21 @@ export type DbArticle = {
     owner_username: string;
     main_category_id?: number;
 };
-export type DbArticleNoId = Omit<DbArticle, 'id'>;
-export type DbArticleRequired = Omit<DbArticle, 'id' | 'created_at'>;
 
 export type DbCategory = {
     id: number;
     name: string;
     tag: string;
-    parent_category_id: number;
+    parent_category_id?: number;
 };
+
+export type DbJoinedArticle = DbArticle & DbCategory;
 
 export function nextArticleId() {
     return generateRandomString(3);
 }
 
-export function createRepository() {
+export function createArticlesRepository() {
     const client = knex({
         client: 'mysql2',
         connection: {
@@ -49,7 +49,7 @@ export function createRepository() {
     };
 
     const makeJoinedWithCategory = () => {
-        return client<DbArticle & DbCategory>()
+        return client<DbJoinedArticle>()
             .select('articles.*', 'categories.*')
             .from('articles')
             .leftJoin(
@@ -92,8 +92,16 @@ export function createRepository() {
     const del = async (id: string) => {
         await a().where({ id }).del();
     };
+    const getOne = async (id: string) => {
+        return await a().where({ id }).first();
+    };
+    const getByCategory = async (categoryId: number) => {
+        return a().where({ main_category_id: categoryId });
+    };
 
     return {
+        getOne,
+        getByCategory,
         listJoinedAll,
         listJoinedPublished,
         listJoinedForUser,
@@ -103,5 +111,50 @@ export function createRepository() {
         create,
         update,
         del,
+    };
+}
+
+export function createCategoriesRepository() {
+    const client = knex({
+        client: 'mysql2',
+        connection: {
+            host: settings.dbHost,
+            user: settings.dbUsername,
+            password: settings.dbPassword,
+            database: settings.dbDatabaseName,
+        },
+    });
+
+    const cat = () => client<DbCategory>('categories');
+
+    const create = async <T extends Omit<DbCategory, 'id'>>(c: T) => {
+        return await cat().insert(c).returning('id');
+    };
+    const update = async <T extends Partial<DbCategory>>(
+        id: number,
+        patch: T
+    ) => {
+        await cat().where({ id }).update(patch);
+    };
+    const del = async (id: number) => {
+        await cat().where({ id }).del();
+    };
+    const list = async () => {
+        return cat().select('*');
+    };
+    const getOne = async (id: number) => {
+        return cat().where({ id }).first();
+    };
+    const getOneByName = async (name: string) => {
+        return cat().where({ name }).first();
+    };
+
+    return {
+        create,
+        update,
+        del,
+        list,
+        getOne,
+        getOneByName,
     };
 }

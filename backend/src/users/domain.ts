@@ -1,6 +1,4 @@
 import _ from 'lodash';
-import { report } from 'process';
-import { stringify } from 'querystring';
 import { createRepository, DbUser } from './repository';
 
 export type ApiUser = {
@@ -41,6 +39,18 @@ export class AppUser {
         return !!this.fields.username;
     }
 
+    get isAdmin() {
+        return this.fields.isAdmin === true;
+    }
+
+    get isUser() {
+        return !this.isAnonym;
+    }
+
+    get username() {
+        return this.fields.username || '';
+    }
+
     static fromTokenPayload(tokenPayload: UserTokenPayload) {
         const appUser = new AppUser(
             _.omit(tokenPayload, 'roles', 'permissions')
@@ -59,7 +69,7 @@ export class AppUser {
     }
 }
 
-function toApiUser(d: DbUser): ApiUser {
+export function toApiUser(d: DbUser): ApiUser {
     if (!d) return null;
     return {
         id: d.username,
